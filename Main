@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+//convert month names to month date
+int DateParser(string month) {
+	int monthInt = 0;
+	
+	if (month == "January")
+		monthInt = 1;
+	else if (month == "February")
+		monthInt = 2;
+	else if (month == "March")
+		monthInt = 3;
+	else if (month == "April")
+		monthInt = 4;
+	else if (month == "May")
+		monthInt = 5;
+	else if (month == "June")
+		monthInt = 6;
+	else if (month == "July")
+		monthInt = 7;
+	else if (month == "August")
+		monthInt = 8;
+	else if (month == "September")
+		monthInt = 9;
+	else if (month == "October")
+		monthInt = 10;
+	else if (month == "November")
+		monthInt = 11;
+	else if (month == "December")
+		monthInt = 12;
+	else {monthInt = -1;}
+	return monthInt;
+}
+
+int main () {
+	
+	string date;
+	string monthStr;
+	int monthInt;
+	string dayStr;
+	string yearStr;
+	size_t t = -1; //used to compare returns from string.size() & string.find()
+	bool isValid;
+	istringstream inSS;
+	cout << "Enter a date in the format: month day, year\nOther entries will be ignored") << endl;
+	getline(cin, date); //retrieve user input 1 line at a time
+	while (date != "-1") { //check if user requests to close
+	   isValid = false; 
+	   inSS.clear();
+	   inSS.str(date); //store string in stream
+	   
+	   inSS >> monthStr; //extract month name
+	   if (inSS.good()) { //make sure stream has no errors
+	      if(monthStr.find('/') == t && date.find(',') != t) { //check if valid entry
+	         monthInt = DateParser(monthStr);
+	            if (monthInt != -1){ //check to make sure month name is valid
+	         isValid = true;
+	         inSS >> dayStr >> yearStr; //extract day and year
+	         monthInt = DateParser(monthStr); //convert month name to month date
+	         dayStr.erase(dayStr.find(','), 1); //remove comma
+	         }
+	      }
+	
+	   }
+	   if (isValid == true) // if valid entry, output new format
+	   cout << monthInt << '/' << dayStr << '/' << yearStr << endl;
+	   getline(cin, date);
+	
+	}
+	
+   
+	       
+
+}
